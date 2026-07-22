@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Rebirth Farm Tycoon with Accounts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Auth Overlay Screen -->
+    <div id="auth-screen" class="auth-overlay">
+        <div class="auth-box">
+            <h2 id="auth-title">🌾 Create Farm Account</h2>
+            <div class="input-group">
+                <label>Username:</label>
+                <input type="text" id="username-input" placeholder="Enter username...">
+            </div>
+            <div class="input-group">
+                <label>Password:</label>
+                <input type="password" id="password-input" placeholder="Enter password...">
+            </div>
+            <div class="auth-buttons">
+                <button id="primary-auth-btn" onclick="handleAuthSubmit()">Register Account</button>
+            </div>
+            <p class="auth-toggle" onclick="toggleAuthMode()">Already have an account? <span id="toggle-link-text">Log In here</span></p>
+            <p id="auth-error" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- Main Game Container -->
+    <div class="game-container hidden" id="main-game">
+        <        <header>
+            <div class="account-header">
+                <span id="welcome-user">👋 Welcome, Farmer!</span>
+                <div class="account-buttons">
+                    <button class="reset-btn" onclick="handleResetGame()">🔄 Reset Game</button>
+                    <button class="logout-btn" onclick="handleLogout()">Log Out</button>
+                </div>
+            </div>
+            <h1>🚜 Kons Farming Simulator</h1>
+<!-- The rest of your index.html remains exactly the same -->
+
+            <div class="stats-bar">
+                <span id="money-display">💰 Money: $50</span>
+                <span id="multiplier-display">⚡ Multiplier: 1.00x</span>
+            </div>
+            
+            <div class="rebirth-container">
+                <span id="rebirth-count">🌟 Rebirths: 0</span>
+                <button id="rebirth-btn" onclick="triggerRebirth()">🔒 Rebirth (Req: $30,000)</button>
+            </div>
+        </header>
+
+        <section class="shop">
+            <h3>Select Seed to Plant:</h3>
+            <div class="seeds-container" id="seeds-container"></div>
+        </section>
+
+        <main class="farm-grid" id="farm-grid"></main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
