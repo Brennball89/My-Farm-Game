@@ -301,11 +301,11 @@ function toggleTheme() {
     if (bodyEl.classList.contains('light-mode')) {
         bodyEl.classList.remove('light-mode');
         bodyEl.classList.add('dark-mode');
-        themeBtn.innerText = "🌗 light mode";
+        themeBtn.innerText = "🌗 Light mode";
     } else {
         bodyEl.classList.remove('dark-mode');
         bodyEl.classList.add('light-mode');
-        themeBtn.innerText = "🌗 dark mode";
+        themeBtn.innerText = "🌗 Dark mode";
     }
 }
 
