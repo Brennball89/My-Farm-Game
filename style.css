@@ -1,13 +1,26 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-body { background: #efebe9; color: #3e2723; display: flex; justify-content: center; padding: 20px; min-height: 100vh; align-items: center; }
+
+/* === FARB-THEMEN STYLING === */
+body.light-mode { background: #efebe9; color: #3e2723; }
+body.light-mode h1 { color: #5d4037; }
+body.light-mode .stats-bar, body.light-mode .shop, body.light-mode .farm-grid { background: #fff; }
+body.light-mode .account-header { background: #d7ccc8; color: #3e2723; }
+
+body.dark-mode { background: #1a1a1a; color: #f5f5f5; }
+body.dark-mode h1 { color: #ffb74d; }
+body.dark-mode .stats-bar, body.dark-mode .shop, body.dark-mode .farm-grid { background: #2d2d2d; color: #f5f5f5; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+body.dark-mode .account-header { background: #3a3a3a; color: #f5f5f5; }
+body.dark-mode .seed-btn { border-color: rgba(255,255,255,0.2); }
+
+body { display: flex; justify-content: center; padding: 20px; min-height: 100vh; align-items: center; transition: background 0.3s, color 0.3s; }
 .game-container { max-width: 900px; width: 100%; text-align: center; }
 .game-container.hidden { display: none !important; }
-h1 { margin-bottom: 15px; color: #5d4037; font-weight: 800; }
+h1 { margin-bottom: 15px; font-weight: 800; }
 
 /* Authentication Overlay UI */
-.auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(62, 39, 35, 0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
 .auth-overlay.hidden { display: none !important; }
-.auth-box { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: left; border: 4px solid #8d6e63; }
+.auth-box { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); text-align: left; border: 4px solid #8d6e63; color: #3e2723; }
 .auth-box h2 { color: #5d4037; margin-bottom: 20px; text-align: center; }
 .input-group { margin-bottom: 15px; }
 .input-group label { display: block; font-weight: bold; margin-bottom: 5px; color: #5d4037; }
@@ -19,23 +32,31 @@ h1 { margin-bottom: 15px; color: #5d4037; font-weight: 800; }
 .error-msg { color: #d32f2f; font-weight: bold; text-align: center; margin-top: 10px; font-size: 0.9rem; }
 
 /* Account Management Header */
-.account-header { display: flex; justify-content: space-between; align-items: center; background: #d7ccc8; padding: 8px 15px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; }
+.account-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 15px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; }
+.account-buttons { display: flex; gap: 8px; }
+.theme-btn { background: #0288d1; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.theme-btn:hover { background: #01579b; }
+
+/* NEU: Smootherer Reset Button mit modernem Übergang */
+.reset-btn { background: #e0e0e0; color: #424242; border: 1px solid #bdbdbd; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.2s ease-in-out; }
+.reset-btn:hover { background: #d32f2f; color: white; border-color: #b71c1c; box-shadow: 0 2px 5px rgba(211, 47, 47, 0.3); }
+
 .logout-btn { background: #c62828; color: white; border: none; padding: 5px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 .logout-btn:hover { background: #b71c1c; }
 
 /* Game Dashboard Components */
-.stats-bar { display: flex; justify-content: space-around; font-size: 1.4rem; font-weight: bold; background: #fff; padding: 12px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.stats-bar { display: flex; justify-content: space-around; font-size: 1.4rem; font-weight: bold; padding: 12px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 15px; }
 .rebirth-container { display: flex; justify-content: space-between; align-items: center; background: #fff8e1; border: 2px solid #ffe082; padding: 10px 20px; border-radius: 8px; margin: 15px 0; font-weight: bold; font-size: 1.1rem; color: #ff8f00; }
 #rebirth-btn { background: #ffb300; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 800; cursor: pointer; color: white; transition: background 0.2s; }
 #rebirth-btn:hover { background: #ffa000; }
 #rebirth-btn.disabled { background: #b0bec5; cursor: not-allowed; color: #eceff1; }
-.shop { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.shop { padding: 15px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
 .seeds-container { display: flex; gap: 10px; overflow-x: auto; padding: 5px 0 10px 0; }
 .seed-btn { flex: 0 0 115px; border: 2px solid rgba(0,0,0,0.15); padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.85rem; line-height: 1.4; transition: all 0.2s; color: #111; text-shadow: 0px 0px 2px rgba(255,255,255,0.8); }
 .seed-btn small { color: #222; font-weight: 600; display: block; margin-top: 4px; }
 .seed-btn:hover { transform: scale(1.03); filter: brightness(1.05); }
 .seed-btn.active { border: 3px solid #000 !important; transform: scale(1.05); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-.farm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin: 0 auto; max-width: 800px; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.farm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin: 0 auto; max-width: 800px; padding: 15px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 .plot { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; font-size: 0.85rem; cursor: pointer; border: 3px solid #795548; text-align: center; padding: 4px; transition: transform 0.1s; }
 .plot:hover { transform: scale(1.04); }
 .plot.empty { background: #8d6e63; color: #ffe0b2; }
@@ -44,6 +65,10 @@ h1 { margin-bottom: 15px; color: #5d4037; font-weight: 800; }
 .plot.locked { background: #cfd8dc; border-color: #90a4ae; color: #546e7a; cursor: not-allowed; }
 .plot.locked:hover { transform: none; }
 .shake { animation: shakeEffect 0.4s ease-in-out; }
+
+/* NEU: Smooth Fade-In Animation für das Interface beim Reset */
+.fade-in { animation: fadeInEffect 0.6s ease-out forwards; }
+
 @keyframes shakeEffect {
     0%, 100% { transform: translateX(0); }
     15%, 55% { transform: translateX(-8px); }
@@ -53,4 +78,8 @@ h1 { margin-bottom: 15px; color: #5d4037; font-weight: 800; }
 @keyframes bounce {
     0%, 100% { transform: translateY(0); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     50% { transform: translateY(-4px); box-shadow: 0 10px 12px rgba(76,175,80,0.3); }
+}
+@keyframes fadeInEffect {
+    from { opacity: 0; transform: scale(0.98); filter: blur(2px); }
+    to { opacity: 1; transform: scale(1); filter: blur(0); }
 }

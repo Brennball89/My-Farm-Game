@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infinite Rebirth Farm Tycoon with Accounts</title>
+    <title>Infinite Rebirth Farm Tycoon with Dark Mode</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="light-mode"> <!-- Das Spiel startet standardmäßig im hellen Design -->
 
     <!-- Auth Overlay Screen -->
     <div id="auth-screen" class="auth-overlay">
@@ -30,17 +30,17 @@
 
     <!-- Main Game Container -->
     <div class="game-container hidden" id="main-game">
-        <        <header>
+        <header>
             <div class="account-header">
                 <span id="welcome-user">👋 Welcome, Farmer!</span>
                 <div class="account-buttons">
+                    <!-- NEU: Der Button zum Umschalten der Ansicht -->
+                    <button class="theme-btn" onclick="toggleTheme()">🌗 Theme</button>
                     <button class="reset-btn" onclick="handleResetGame()">🔄 Reset Game</button>
                     <button class="logout-btn" onclick="handleLogout()">Log Out</button>
                 </div>
             </div>
-            <h1>🚜 Kons Farming Simulator</h1>
-<!-- The rest of your index.html remains exactly the same -->
-
+            <h1>🚜 Farm Simulator</h1>
             <div class="stats-bar">
                 <span id="money-display">💰 Money: $50</span>
                 <span id="multiplier-display">⚡ Multiplier: 1.00x</span>

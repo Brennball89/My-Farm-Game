@@ -12,17 +12,17 @@ let currentRebirthCost = 30000;
 
 // Massive 11 Crop Inventory Database - Sell values set exactly to 1.3x buying cost!
 const cropData = {
-    carrot:   { name: 'Carrot',    emoji: '🥕', cost: 10,     sell: 13,        time: 3,   color: '#ffb74d' }, // $10 * 1.3 = $13
-    cucumber: { name: 'Cucumber',  emoji: '🥒', cost: 35,     sell: 46,        time: 7,   color: '#a5d6a7' }, // $35 * 1.3 = $46
-    tomato:   { name: 'Tomato',    emoji: '🍅', cost: 120,    sell: 156,       time: 12,  color: '#ef9a9a' }, // $120 * 1.3 = $156
-    grape:    { name: 'Grapes',    emoji: '🍇', cost: 450,    sell: 585,       time: 20,  color: '#ce93d8' }, // $450 * 1.3 = $585
-    pumpkin:  { name: 'Pumpkin',   emoji: '🎃', cost: 1800,   sell: 2340,      time: 35,  color: '#ffcc80' }, // $1800 * 1.3 = $2340
-    mango:    { name: 'Mango',     emoji: '🥭', cost: 7000,   sell: 9100,      time: 50,  color: '#ffe082' }, // $7000 * 1.3 = $9100
-    melon:    { name: 'Melon',     emoji: '🍉', cost: 25000,  sell: 32500,     time: 75,  color: '#81c784' }, // $25000 * 1.3 = $32500
-    berry:    { name: 'Blueberry', emoji: '🫐', cost: 90000,  sell: 117000,    time: 100, color: '#9fa8da' }, // $90000 * 1.3 = $117000
-    pineapple:{ name: 'Pineapple', emoji: '🍍', cost: 350000, sell: 455000,    time: 140, color: '#fff59d' }, // $350000 * 1.3 = $455000
-    golden:   { name: 'Gold Apple',emoji: '🍏', cost: 1500000,sell: 1950000,   time: 180, color: '#c5e1a5' }, // $1500000 * 1.3 = $1950000
-    starfruit:{ name: 'Starfruit', emoji: '⭐',  cost: 6000000,sell: 7800000,   time: 245, color: '#fff59d' }  // $6000000 * 1.3 = $7800000
+    carrot:   { name: 'Carrot',    emoji: '🥕', cost: 10,     sell: 13,        time: 3,   color: '#ffb74d' }, 
+    cucumber: { name: 'Cucumber',  emoji: '🥒', cost: 35,     sell: 46,        time: 7,   color: '#a5d6a7' }, 
+    tomato:   { name: 'Tomato',    emoji: '🍅', cost: 120,    sell: 156,       time: 12,  color: '#ef9a9a' }, 
+    grape:    { name: 'Grapes',    emoji: '🍇', cost: 450,    sell: 585,       time: 20,  color: '#ce93d8' }, 
+    pumpkin:  { name: 'Pumpkin',   emoji: '🎃', cost: 1800,   sell: 2340,      time: 35,  color: '#ffcc80' }, 
+    mango:    { name: 'Mango',     emoji: '🥭', cost: 7000,   sell: 9100,      time: 50,  color: '#ffe082' }, 
+    melon:    { name: 'Melon',     emoji: '🍉', cost: 25000,  sell: 32500,     time: 75,  color: '#81c784' }, 
+    berry:    { name: 'Blueberry', emoji: '🫐', cost: 90000,  sell: 117000,    time: 100, color: '#9fa8da' }, 
+    pineapple:{ name: 'Pineapple', emoji: '🍍', cost: 350000, sell: 455000,    time: 140, color: '#fff59d' }, 
+    golden:   { name: 'Gold Apple',emoji: '🍏', cost: 1500000,sell: 1950000,   time: 180, color: '#c5e1a5' }, 
+    starfruit:{ name: 'Starfruit', emoji: '⭐',  cost: 6000000,sell: 7800000,   time: 245, color: '#fff59d' }  
 };
 
 let totalPlotsCount = 24;
@@ -51,6 +51,7 @@ function toggleAuthMode() {
     document.getElementById('primary-auth-btn').innerText = isRegisterMode ? "Register Account" : "Log In";
     document.getElementById('toggle-link-text').innerText = isRegisterMode ? "Log In here" : "Register here";
 }
+
 function handleAuthSubmit() {
     const user = document.getElementById('username-input').value.trim();
     const pass = document.getElementById('password-input').value.trim();
@@ -95,10 +96,7 @@ function handleAuthSubmit() {
 
 function handleLogout() {
     const userConfirmed = confirm("⚠️ WARNING: If you log out, your currently growing crops will despawn! Do you still want to log out?");
-    
-    if (!userConfirmed) {
-        return; 
-    }
+    if (!userConfirmed) return; 
 
     saveUserData();
     plots.forEach(plot => { if (plot.timerId) clearInterval(plot.timerId); });
@@ -110,7 +108,6 @@ function handleLogout() {
     document.getElementById('main-game').classList.add('hidden');
     document.getElementById('auth-screen').classList.remove('hidden');
 }
-
 function handleResetGame() {
     const firstCheck = confirm("⚠️ DANGER: Are you sure you want to RESET your entire farm progress? You will lose all your money, rebirths, and multipliers!");
     if (!firstCheck) return; 
@@ -129,11 +126,15 @@ function handleResetGame() {
     initPlotsDataset();
     saveUserData();
 
+    const gameContainer = document.getElementById('main-game');
+    gameContainer.classList.remove('fade-in');
+    void gameContainer.offsetWidth; // Erzwingt CSS-Reflow für Animation
+    
     buildShopInterface();
     buildGridPlotsInterface();
     updateDisplayPanels();
-
-    alert("🔄 Your farm has been successfully reset to day one! Happy farming!");
+    
+    gameContainer.classList.add('fade-in');
 }
 
 // =========================================================================
@@ -164,6 +165,7 @@ function loadUserData() {
     }
     initPlotsDataset();
 }
+
 // =========================================================================
 // 4. INTERFACE DOM NODE ELEMENT BUILDERS
 // =========================================================================
@@ -281,7 +283,7 @@ function updateDisplayPanels() {
     
     const rebirthBtn = document.getElementById('rebirth-btn');
     if (money >= currentRebirthCost) {
-        reb1rthBtn.className = "";
+        rebirthBtn.className = "";
         rebirthBtn.innerText = `READY! Rebirth (Costs $${currentRebirthCost.toLocaleString()})`;
     } else {
         rebirthBtn.className = "disabled";
@@ -290,6 +292,24 @@ function updateDisplayPanels() {
 }
 
 // =========================================================================
-// 6. SYSTEM RUNTIME STARTUP CORES
+// 6. HELL- / DUNKEL-MODE UMSCHALTER MIT TEXTWECHSEL
+// =========================================================================
+function toggleTheme() {
+    const bodyEl = document.body;
+    const themeBtn = document.querySelector('.theme-btn');
+    
+    if (bodyEl.classList.contains('light-mode')) {
+        bodyEl.classList.remove('light-mode');
+        bodyEl.classList.add('dark-mode');
+        themeBtn.innerText = "🌗 light mode";
+    } else {
+        bodyEl.classList.remove('dark-mode');
+        bodyEl.classList.add('light-mode');
+        themeBtn.innerText = "🌗 dark mode";
+    }
+}
+
+// =========================================================================
+// 7. SYSTEM RUNTIME STARTUP CORES
 // =========================================================================
 initPlotsDataset();
